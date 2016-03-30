@@ -8,15 +8,16 @@ import net.pizzacrust.mixin.Mixin;
 /**
  * Injects to Minecraft's booting process.
  * This is the only thing that isn't dynamic. Java doesn't allow dynamic annotations.
- * IoL can be updated to the next Minecraft version by changing the @Mixin annotation and the startGame method.
+ * IoL can be updated to the next Minecraft version by changing the @Mixin and @MethodName annotation.
  *
  * @since 1.0-SNAPSHOT
  * @author PizzaCrust
  */
-@Mixin("bcf")
-public class MinecraftMixin {
-    @Inject(Inject.Execution.AFTER)
-    public void an() {
+@Mixin("la")
+public class MixinDedicatedServer {
+    @Inject(value = Inject.Execution.CUSTOM, line = 1041)
+    @MethodName("j")
+    public void onStart() {
         /**
          * TODO: Injection process.
          * The injection process shall be done in this Mixin.
