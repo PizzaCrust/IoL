@@ -1,5 +1,6 @@
 package net.pizzacrust.iol.mixin;
 
+import net.pizzacrust.iol.IoL;
 import net.pizzacrust.mixin.Inject;
 import net.pizzacrust.mixin.MethodName;
 import net.pizzacrust.mixin.Mixin;
@@ -21,5 +22,6 @@ public class MinecraftMixin {
          * TODO: Injection process.
          * The injection process shall be done in this Mixin.
          */
+        IoL.LOADER_LOGGER.info("[IOL] Mixin injection has succeeded.");
     }
 }
