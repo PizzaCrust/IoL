@@ -3,11 +3,14 @@ package net.pizzacrust.iol.mixin;
 import net.minecraft.server.MinecraftServer;
 import net.pizzacrust.iol.IoL;
 import net.pizzacrust.iol.map.MappingsRegistry;
+import net.pizzacrust.iol.plugin.PluginLoader;
 import net.pizzacrust.mixin.Inject;
 import net.pizzacrust.mixin.MethodName;
 import net.pizzacrust.mixin.Mixin;
 import net.pizzacrust.mixin.MixinBridge;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -96,5 +99,25 @@ public class MixinDedicatedServer {
             return;
         }
         IoL.LOADER_LOGGER.info("[IOL] Detected Minecraft Version: " + System.getProperty("minecraft.ver"));
+        IoL.LOADER_LOGGER.info("[IOL] Detecting plugins in plugins directory...");
+        File[] plugins = IoL.PLUGINS_DIRECTORY.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".iol");
+            }
+        });
+        IoL.LOADER_LOGGER.info("[IOL] Detected " + plugins.length + " in the plugins directory.");
+        for (File file : plugins) {
+            try {
+                IoL.LOADER_LOGGER.info("[IOL] Loading file " + file.getName() + "...");
+                PluginLoader pluginLoader = new PluginLoader();
+                pluginLoader.loadPlugin(file);
+                IoL.LOADER_LOGGER.info("[IOL] File " + file.getName() + " has been loaded.");
+            } catch (Exception e) {
+                IoL.LOADER_LOGGER.error("[IOL] File " + file.getName() + " failed to load.");
+                e.printStackTrace();
+            }
+        }
+        IoL.LOADER_LOGGER.info("[IOL] IOL has successfully booted up.");
     }
 }

@@ -32,12 +32,17 @@ public class IoL {
     public static final MappingsRegistry REGISTRY = new MappingsRegistry(new SrgContainer());
 
     /**
+     * The plugins directory.
+     */
+    public static final File PLUGINS_DIRECTORY = new File(System.getProperty("user.dir"), "plugins");
+
+    /**
      * The Javaagent entry method for IoL.
      * @param agentArguments the arguments given to the agent
      * @param instrumentation the instrumentation object of the class loader
      */
     public static void premain(String agentArguments, Instrumentation instrumentation) {
-        LOADER_LOGGER.info("[IOL] Checking for client mappings...");
+        LOADER_LOGGER.info("[IOL] Checking for server mappings...");
         if (!SERVER_MAPPINGS.exists()) {
             LOADER_LOGGER.error("[IOL] Server mappings haven't been found! IoL cannot load without mappings!");
             System.exit(0);
@@ -73,6 +78,13 @@ public class IoL {
             return;
         }
         LOADER_LOGGER.info("[IOL] Mapping Type detected: " + type.toString());
+        LOADER_LOGGER.info("[IOL] Checking for a plugins directory...");
+        if (!PLUGINS_DIRECTORY.exists()) {
+            LOADER_LOGGER.info("[IOL] Plugins directory doesn't exist, creating one!");
+            PLUGINS_DIRECTORY.mkdir();
+        } else {
+            LOADER_LOGGER.info("[IOL] Plugins directory has been detected!");
+        }
         LOADER_LOGGER.info("[IOL] IoL agent is finished, launching Minecraft...");
     }
 }
