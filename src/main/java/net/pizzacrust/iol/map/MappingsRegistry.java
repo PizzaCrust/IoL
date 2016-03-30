@@ -1,6 +1,7 @@
 package net.pizzacrust.iol.map;
 
 import com.google.common.collect.BiMap;
+import net.pizzacrust.iol.meta.Tested;
 import org.spongepowered.asm.obfuscation.SrgContainer;
 import org.spongepowered.asm.obfuscation.SrgField;
 import org.spongepowered.asm.obfuscation.SrgMethod;
@@ -45,8 +46,23 @@ public class MappingsRegistry {
      * @param deobfName the deobfuscated class name
      * @return the obfuscated name
      */
+    @Tested
     public String getClassMapping(String deobfName) {
-        return container.getClassMapping(deobfName).replace('/', '.');
+        try {
+            Class<?> srgContainerClass = SrgContainer.class;
+            Field classMappings = srgContainerClass.getDeclaredField("classMap");
+            classMappings.setAccessible(true);
+            BiMap<String, String> map = (BiMap<String, String>) classMappings.get(this.container);
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                if (entry.getValue().equals(deobfName.replace('.', '/'))) {
+                    return entry.getKey().replace('/', '.');
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
     }
 
     /**
@@ -105,5 +121,30 @@ public class MappingsRegistry {
             }
         }
         return null;
+    }
+
+    /**
+     * Represents different types of SRG mappings.
+     */
+    public enum Type {
+        /**
+         * Bukkit mappings.
+         */
+        BUKKIT("BUKKIT"),
+        /**
+         * MCP mappings.
+         */
+        MCP("MCP");
+
+        private String id;
+
+        Type(String id) {
+            this.id = id;
+        }
+
+        @Override
+        public String toString() {
+            return id;
+        }
     }
 }
