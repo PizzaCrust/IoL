@@ -5,8 +5,16 @@ apply plugin: 'java'
 
 repositories {
     mavenCentral()
+    maven {
+        name = 'sponge'
+        url = 'http://repo.spongepowered.org/maven'
+    }
 }
 
 dependencies {
+    // mixin functionality
     compile files('libs/PizzaMixin-1.0-SNAPSHOT.jar')
+
+    //obfuscation tools
+    compile 'org.spongepowered:mixin:0.5.3-SNAPSHOT'
 }
