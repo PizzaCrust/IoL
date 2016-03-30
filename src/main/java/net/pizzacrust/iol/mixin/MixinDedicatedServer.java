@@ -2,12 +2,14 @@ package net.pizzacrust.iol.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import net.pizzacrust.iol.IoL;
+import net.pizzacrust.iol.map.MappingsRegistry;
 import net.pizzacrust.mixin.Inject;
 import net.pizzacrust.mixin.MethodName;
 import net.pizzacrust.mixin.Mixin;
 import net.pizzacrust.mixin.MixinBridge;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Injects to Minecraft's booting process.
@@ -60,11 +62,13 @@ public class MixinDedicatedServer {
         }
         IoL.LOADER_LOGGER.info("[IOL] Verifying server instances...");
         boolean verified = false;
+        MinecraftServer instance = null;
         for (Field field : thisObj.getClass().getDeclaredFields()) {
             if (field.getName().equals("INSTANCE")) {
                 try {
                     if (!(field.get(null) == null)) {
                         verified = true;
+                        instance = (MinecraftServer) field.get(null);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -77,5 +81,20 @@ public class MixinDedicatedServer {
             return;
         }
         IoL.LOADER_LOGGER.info("[IOL] Instance has been verified.");
+        IoL.LOADER_LOGGER.info("[IOL] Detecting Minecraft Version...");
+        try {
+            String getMinecraftVersionMapping = IoL.REGISTRY.getMethodMapping("net.minecraft.server.MinecraftServer", "getMinecraftVersion").getSimpleName();
+            Class minecraftServerClass = MinecraftServer.class;
+            for (Method method : minecraftServerClass.getDeclaredMethods()) {
+                if (method.getName().equals(getMinecraftVersionMapping) && method.getReturnType() == String.class) {
+                    System.setProperty("minecraft.ver", (String) method.invoke(instance, new Object[0]));
+                }
+            }
+        } catch (Exception e) {
+            IoL.LOADER_LOGGER.error("[IOL] Failed to retrieve Minecraft Version!");
+            System.exit(0);
+            return;
+        }
+        IoL.LOADER_LOGGER.info("[IOL] Detected Minecraft Version: " + System.getProperty("minecraft.ver"));
     }
 }

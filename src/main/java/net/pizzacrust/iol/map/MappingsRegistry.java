@@ -1,6 +1,7 @@
 package net.pizzacrust.iol.map;
 
 import com.google.common.collect.BiMap;
+import net.pizzacrust.iol.IoL;
 import net.pizzacrust.iol.meta.Tested;
 import org.spongepowered.asm.obfuscation.SrgContainer;
 import org.spongepowered.asm.obfuscation.SrgField;
@@ -83,8 +84,8 @@ public class MappingsRegistry {
             return null;
         }
         for (Map.Entry<SrgMethod, SrgMethod> entry : methodMap.entrySet()) {
-            SrgMethod deobf = entry.getKey();
-            SrgMethod obf = entry.getValue();
+            SrgMethod obf = entry.getKey();
+            SrgMethod deobf = entry.getValue();
             if (deobf.getOwner().replace('/', '.').equals(deobfClassParent)) {
                 if (deobf.getSimpleName().equals(deobfMethodName)) {
                     return obf;
