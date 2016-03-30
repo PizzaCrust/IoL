@@ -39,7 +39,7 @@ public class IoL {
     public static void premain(String agentArguments, Instrumentation instrumentation) {
         LOADER_LOGGER.info("[IOL] Checking for client mappings...");
         if (!SERVER_MAPPINGS.exists()) {
-            LOADER_LOGGER.error("[IOL] Servre mappings haven't been found! IoL cannot load without mappings!");
+            LOADER_LOGGER.error("[IOL] Server mappings haven't been found! IoL cannot load without mappings!");
             System.exit(0);
             return;
         }
