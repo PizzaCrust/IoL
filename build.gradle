@@ -8,4 +8,5 @@ repositories {
 }
 
 dependencies {
+    compile files('libs/PizzaMixin-1.0-SNAPSHOT.jar')
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="IoL:test" external.linked.project.path="$MCP_LOC$/eclipse/IoL" external.root.project.path="$MCP_LOC$/eclipse/IoL" external.system.id="GRADLE" external.system.module.group="net.pizzacrust" external.system.module.type="sourceSet" external.system.module.version="1.0-SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
+    <output-test url="file://$MCP_LOC$/eclipse/IoL/build/classes/test" />
+    <exclude-output />
+    <content url="file://$MCP_LOC$/eclipse/IoL/src/test">
+      <sourceFolder url="file://$MCP_LOC$/eclipse/IoL/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MCP_LOC$/eclipse/IoL/src/test/resources" type="java-test-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="IoL_main" />
+  </component>
+  <component name="TestModuleProperties" production-module="IoL_main" />
+</module>
