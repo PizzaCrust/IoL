@@ -106,7 +106,7 @@ public class MixinDedicatedServer {
                 return name.endsWith(".iol");
             }
         });
-        IoL.LOADER_LOGGER.info("[IOL] Detected " + plugins.length + " in the plugins directory.");
+        IoL.LOADER_LOGGER.info("[IOL] Detected " + plugins.length + " plugins in the plugins directory.");
         for (File file : plugins) {
             try {
                 IoL.LOADER_LOGGER.info("[IOL] Loading file " + file.getName() + "...");
