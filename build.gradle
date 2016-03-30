@@ -9,14 +9,35 @@ repositories {
         name = 'sponge'
         url = 'http://repo.spongepowered.org/maven'
     }
+    maven {
+        name = 'mojang'
+        url = 'https://libraries.minecraft.net'
+    }
+}
+
+configurations {
+    shade
+}
+
+jar {
+    manifest {
+        attributes "Premain-Class": "net.pizzacrust.iol.IoL"
+    }
+    from {
+        configurations.shade.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
 }
 
 dependencies {
     // mixin functionality
     compile files('libs/PizzaMixin-1.0-SNAPSHOT.jar')
+    shade files('libs/PizzaMixin-1.0-SNAPSHOT.jar')
 
     //obfuscation tools
     compile 'org.spongepowered:mixin:0.5.3-SNAPSHOT'
+    shade 'org.spongepowered:mixin:0.5.3-SNAPSHOT'
 
     // logging, doesn't need core since Minecraft has it
     compile 'org.apache.logging.log4j:log4j-api:2.5'
