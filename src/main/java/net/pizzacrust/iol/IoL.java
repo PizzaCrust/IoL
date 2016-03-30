@@ -52,5 +52,6 @@ public class IoL {
             System.exit(0);
             return;
         }
+        LOADER_LOGGER.info("[IOL] IoL agent is finished, launching Minecraft...");
     }
 }

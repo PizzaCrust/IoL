@@ -5,6 +5,7 @@
     <content url="file://$MCP_LOC$/eclipse/IoL">
       <excludeFolder url="file://$MCP_LOC$/eclipse/IoL/.gradle" />
       <excludeFolder url="file://$MCP_LOC$/eclipse/IoL/build" />
+      <excludeFolder url="file://$MCP_LOC$/eclipse/IoL/test" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

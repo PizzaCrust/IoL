@@ -17,7 +17,7 @@ import net.pizzacrust.mixin.Mixin;
 public class MixinDedicatedServer {
     @Inject(value = Inject.Execution.CUSTOM, line = 1041)
     @MethodName("j")
-    public void onStart() {
+    public static void startServer() {
         /**
          * TODO: Injection process.
          * The injection process shall be done in this Mixin.
