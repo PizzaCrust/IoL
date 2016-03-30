@@ -49,6 +49,9 @@ dependencies {
     // mixin functionality
     compile files('libs/PizzaMixin-1.0-SNAPSHOT.jar')
 
+    // obf nms
+    compile files('libs/server.1.9.3.jar')
+
     //obfuscation tools
     compile 'org.spongepowered:mixin:0.5.3-SNAPSHOT'
     shade 'org.spongepowered:mixin:0.5.3-SNAPSHOT'
