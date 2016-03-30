@@ -1,9 +1,12 @@
 package net.pizzacrust.iol;
 
+import net.pizzacrust.iol.map.MappingsRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.spongepowered.asm.obfuscation.SrgContainer;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 
 /**
@@ -22,6 +25,11 @@ public class IoL {
      * The client mappings.
      */
     public static File CLIENT_MAPPINGS = new File(new File(System.getProperty("minecraft.dir"), "srg"), "client.srg");
+
+    /**
+     * The mappings registry.
+     */
+    public static final MappingsRegistry REGISTRY = new MappingsRegistry(new SrgContainer());
 
     /**
      * The Javaagent entry method for IoL.
@@ -48,6 +56,15 @@ public class IoL {
         LOADER_LOGGER.info("[IOL] Checking for client mappings...");
         if (!CLIENT_MAPPINGS.exists()) {
             LOADER_LOGGER.error("[IOL] Client mappings haven't been found! IoL cannot load without mappings!");
+            System.exit(0);
+            return;
+        }
+        LOADER_LOGGER.info("[IOL] Parsing and loading mappings...");
+        try {
+            REGISTRY.init(CLIENT_MAPPINGS);
+        } catch (IOException e) {
+            LOADER_LOGGER.error("[IOL] Failed to parse and load mappings!");
+            e.printStackTrace();
             System.exit(0);
             return;
         }
