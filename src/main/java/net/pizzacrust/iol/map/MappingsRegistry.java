@@ -72,6 +72,7 @@ public class MappingsRegistry {
      * @param deobfMethodName the method name
      * @return the mapping
      */
+    @Tested
     public SrgMethod getMethodMapping(String deobfClassParent, String deobfMethodName) {
         BiMap<SrgMethod, SrgMethod> methodMap;
         try {
