@@ -45,5 +45,11 @@ public class IoL {
             System.exit(0);
             return;
         }
+        LOADER_LOGGER.info("[IOL] Checking for client mappings...");
+        if (!CLIENT_MAPPINGS.exists()) {
+            LOADER_LOGGER.error("[IOL] Client mappings haven't been found! IoL cannot load without mappings!");
+            System.exit(0);
+            return;
+        }
     }
 }
