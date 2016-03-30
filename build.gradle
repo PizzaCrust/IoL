@@ -15,6 +15,21 @@ repositories {
     }
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+compileJava {
+    options.compilerArgs << '-proc:none'
+}
+
 configurations {
     shade
 }
@@ -33,7 +48,6 @@ jar {
 dependencies {
     // mixin functionality
     compile files('libs/PizzaMixin-1.0-SNAPSHOT.jar')
-    shade files('libs/PizzaMixin-1.0-SNAPSHOT.jar')
 
     //obfuscation tools
     compile 'org.spongepowered:mixin:0.5.3-SNAPSHOT'
