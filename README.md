@@ -1,5 +1,5 @@
 # IoL
-**Injected Orientated Loader**
+**Injected Orientated Loader** \n
 A dynamic and injected orientated plugin loader for Minecraft.
 ## Features
 
