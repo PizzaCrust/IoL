@@ -1,5 +1,8 @@
 package net.pizzacrust.iol;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.lang.instrument.Instrumentation;
 
 /**
@@ -9,6 +12,11 @@ import java.lang.instrument.Instrumentation;
  * @author PizzaCrust
  */
 public class IoL {
+    /**
+     * The loader's logger.
+     */
+    public static final Logger LOADER_LOGGER = LogManager.getLogger("IoL");
+
     /**
      * The Javaagent entry method for IoL.
      * @param agentArguments the arguments given to the agent
