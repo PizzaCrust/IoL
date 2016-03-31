@@ -68,14 +68,14 @@ public class IoL {
         String iTextComponent = "net.minecraft.util.text.ITextComponent"; // mcp
         String obfName = REGISTRY.getClassMapping(textComponent);
         MappingsRegistry.Type type = null;
-        if (!(obfName == null)) {
+        if (obfName != null) {
             type = MappingsRegistry.Type.BUKKIT;
         }
         if (obfName == null) {
             obfName = REGISTRY.getClassMapping(iTextComponent);
-        }
-        if (!(obfName == null)) {
-            type = MappingsRegistry.Type.MCP;
+            if (obfName != null) {
+                type = MappingsRegistry.Type.MCP;
+            }
         }
         if (type == null) {
             LOADER_LOGGER.error("[IOL] Failed to verify mappings!");
