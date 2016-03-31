@@ -13,6 +13,10 @@ repositories {
         name = 'mojang'
         url = 'https://libraries.minecraft.net'
     }
+    maven {
+        name = 'personal-repo'
+        url = 'http://pizzacrustrepo.gq'
+    }
 }
 
 sourceSets {
@@ -47,7 +51,7 @@ jar {
 
 dependencies {
     // mixin functionality
-    compile files('libs/PizzaMixin-1.0-SNAPSHOT.jar')
+    compile 'net.pizzacrust:PizzaMixin:1.0-SNAPSHOT'
 
     // obf nms
     compile files('libs/server.1.9.3.jar')
