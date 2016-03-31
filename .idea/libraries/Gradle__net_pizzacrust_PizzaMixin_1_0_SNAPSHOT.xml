@@ -2,8 +2,11 @@
   <library name="Gradle: net.pizzacrust:PizzaMixin:1.0-SNAPSHOT">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/Could not resolve net.pizzacrust:PizzaMixin:1.0-SNAPSHOT." />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.pizzacrust/PizzaMixin/1.0-SNAPSHOT/260a40fd6722e3afeae308070e8ba885ab6b695a/PizzaMixin-1.0-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.pizzacrust/PizzaMixin/1.0-SNAPSHOT/bf1229623e661d59b3b3dcfdde665bc31a3b787a/PizzaMixin-1.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>
