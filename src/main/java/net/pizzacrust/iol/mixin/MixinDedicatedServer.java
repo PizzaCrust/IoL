@@ -85,20 +85,24 @@ public class MixinDedicatedServer {
         }
         IoL.LOADER_LOGGER.info("[IOL] Instance has been verified.");
         IoL.LOADER_LOGGER.info("[IOL] Detecting Minecraft Version...");
-        try {
-            String getMinecraftVersionMapping = IoL.REGISTRY.getMethodMapping("net.minecraft.server.MinecraftServer", "getMinecraftVersion").getSimpleName();
-            Class minecraftServerClass = MinecraftServer.class;
-            for (Method method : minecraftServerClass.getDeclaredMethods()) {
-                if (method.getName().equals(getMinecraftVersionMapping) && method.getReturnType() == String.class) {
-                    System.setProperty("minecraft.ver", (String) method.invoke(instance, new Object[0]));
+        if (IoL.MAPPING_TYPE != MappingsRegistry.Type.MCP) {
+            try {
+                String getMinecraftVersionMapping = IoL.REGISTRY.getMethodMapping("net.minecraft.server.MinecraftServer", "getMinecraftVersion").getSimpleName();
+                Class minecraftServerClass = MinecraftServer.class;
+                for (Method method : minecraftServerClass.getDeclaredMethods()) {
+                    if (method.getName().equals(getMinecraftVersionMapping) && method.getReturnType() == String.class) {
+                        System.setProperty("minecraft.ver", (String) method.invoke(instance, new Object[0]));
+                    }
                 }
+            } catch (Exception e) {
+                IoL.LOADER_LOGGER.error("[IOL] Failed to retrieve Minecraft Version!");
+                System.exit(0);
+                return;
             }
-        } catch (Exception e) {
-            IoL.LOADER_LOGGER.error("[IOL] Failed to retrieve Minecraft Version!");
-            System.exit(0);
-            return;
+            IoL.LOADER_LOGGER.info("[IOL] Detected Minecraft Version: " + System.getProperty("minecraft.ver"));
+        } else {
+            IoL.LOADER_LOGGER.info("[IOL] Bukkit mappings do not have getMinecraftVersion!");
         }
-        IoL.LOADER_LOGGER.info("[IOL] Detected Minecraft Version: " + System.getProperty("minecraft.ver"));
         IoL.LOADER_LOGGER.info("[IOL] Detecting plugins in plugins directory...");
         File[] plugins = IoL.PLUGINS_DIRECTORY.listFiles(new FilenameFilter() {
             @Override

@@ -37,6 +37,11 @@ public class IoL {
     public static final File PLUGINS_DIRECTORY = new File(System.getProperty("user.dir"), "plugins");
 
     /**
+     * The mapping type of the server mappings.
+     */
+    public static MappingsRegistry.Type MAPPING_TYPE;
+
+    /**
      * The Javaagent entry method for IoL.
      * @param agentArguments the arguments given to the agent
      * @param instrumentation the instrumentation object of the class loader
@@ -77,6 +82,7 @@ public class IoL {
             System.exit(0);
             return;
         }
+        IoL.MAPPING_TYPE = type;
         LOADER_LOGGER.info("[IOL] Mapping Type detected: " + type.toString());
         LOADER_LOGGER.info("[IOL] Checking for a plugins directory...");
         if (!PLUGINS_DIRECTORY.exists()) {
