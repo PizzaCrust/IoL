@@ -4,6 +4,7 @@ import net.minecraft.server.MinecraftServer;
 import net.pizzacrust.iol.IoL;
 import net.pizzacrust.iol.map.MappingsRegistry;
 import net.pizzacrust.iol.plugin.PluginLoader;
+import net.pizzacrust.iol.security.SandboxSecurityManager;
 import net.pizzacrust.mixin.Inject;
 import net.pizzacrust.mixin.MethodName;
 import net.pizzacrust.mixin.Mixin;
@@ -69,7 +70,7 @@ public class MixinDedicatedServer {
         for (Field field : thisObj.getClass().getDeclaredFields()) {
             if (field.getName().equals("INSTANCE")) {
                 try {
-                    if (!(field.get(null) == null)) {
+                    if (field.get(null) != null) {
                         verified = true;
                         instance = (MinecraftServer) field.get(null);
                     }
@@ -85,7 +86,7 @@ public class MixinDedicatedServer {
         }
         IoL.LOADER_LOGGER.info("[IOL] Instance has been verified.");
         IoL.LOADER_LOGGER.info("[IOL] Detecting Minecraft Version...");
-        if (IoL.MAPPING_TYPE != MappingsRegistry.Type.MCP) {
+        if (IoL.MAPPING_TYPE == MappingsRegistry.Type.MCP) {
             try {
                 String getMinecraftVersionMapping = IoL.REGISTRY.getMethodMapping("net.minecraft.server.MinecraftServer", "getMinecraftVersion").getSimpleName();
                 Class minecraftServerClass = MinecraftServer.class;
@@ -103,6 +104,9 @@ public class MixinDedicatedServer {
         } else {
             IoL.LOADER_LOGGER.info("[IOL] Bukkit mappings do not have getMinecraftVersion!");
         }
+        IoL.LOADER_LOGGER.info("[IOL] Setting security manager to SandboxSecurityManager...");
+        System.setSecurityManager(new SandboxSecurityManager());
+        IoL.LOADER_LOGGER.info("[IOL] Security manager set!");
         IoL.LOADER_LOGGER.info("[IOL] Detecting plugins in plugins directory...");
         File[] plugins = IoL.PLUGINS_DIRECTORY.listFiles(new FilenameFilter() {
             @Override
