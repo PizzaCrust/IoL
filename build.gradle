@@ -15,7 +15,7 @@ repositories {
     }
     maven {
         name = 'personal-repo'
-        url = 'http://pizzacrustrepo.gq'
+        url = 'http://pizzacrustrepo.gq/content/repositories/snapshots/'
     }
 }
 
