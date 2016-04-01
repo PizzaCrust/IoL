@@ -19,8 +19,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="IoL_main" target="1.7" />
-      <module name="IoL_test" target="1.7" />
+      <module name="IoL_main" target="1.8" />
+      <module name="IoL_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

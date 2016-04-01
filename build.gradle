@@ -2,6 +2,7 @@ group 'net.pizzacrust'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: "deobfuscate4j"
 
 repositories {
     mavenCentral()
@@ -19,6 +20,19 @@ repositories {
     }
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'quantum-repo'
+            url = "https://raw.githubusercontent.com/QuantumTheoryMC/Ionized/master"
+        }
+    }
+    dependencies {
+        classpath 'qtmc.lib:DeobfMC:1.9-SNAPSHOT'
+    }
+}
+
 sourceSets {
     main {
         java {
@@ -28,6 +42,12 @@ sourceSets {
             srcDir 'src/main/resources'
         }
     }
+}
+
+deobfmc {
+    downloadSrgLocation = "https://raw.githubusercontent.com/ProjectTestificate/MinecraftMappings/master/1.9/obf2mcp.srg"
+    downloadInJar = "https://launcher.mojang.com/mc/game/1.9/client/2f67dfe8953299440d1902f9124f0f2c3a2c940f/client.jar"
+    outJarName = "Minecraft.jar"
 }
 
 compileJava {
@@ -53,12 +73,8 @@ dependencies {
     // mixin functionality
     compile 'net.pizzacrust:PizzaMixin:1.0-SNAPSHOT'
 
-    // obf nms
-    compile files('libs/server.1.9.3.jar')
-
-    //obfuscation tools
-    compile 'org.spongepowered:mixin:0.5.3-SNAPSHOT'
-    shade 'org.spongepowered:mixin:0.5.3-SNAPSHOT'
+    // deobf client
+    compile files('libs/Minecraft.jar')
 
     // logging, doesn't need core since Minecraft has it
     compile 'org.apache.logging.log4j:log4j-api:2.5'

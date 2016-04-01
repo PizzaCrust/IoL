@@ -3,7 +3,7 @@ package net.pizzacrust.iol.security;
 import java.security.Permission;
 
 /**
- * Plugins are limited to functions that are safe and won't harm the user's system.
+ * Mods are limited to functions that are safe and won't harm the user's system.
  *
  * @since 1.0-SNAPSHOT
  * @author PizzaCrust
